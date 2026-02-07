@@ -3,6 +3,12 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
+import { SharedModule } from './shared/shared-module';
+import { AuthModule } from './auth/auth-module';
+import { LayoutModule } from './layout/layout-module';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { JwtInterceptor } from './core/interceptors/jwt.interceptor';
+
 
 @NgModule({
   declarations: [
@@ -10,10 +16,18 @@ import { App } from './app';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    SharedModule,
+    AuthModule,
+    LayoutModule
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [App]
 })

@@ -1,0 +1,53 @@
+:host {
+  display: block;
+  padding: 1.5rem;
+}
+
+/* ====== FORMULARIO ====== */
+.product-form {
+  display: grid;
+  grid-template-columns: 1fr 2fr auto;
+  gap: 1rem;
+  align-items: end;
+  margin-bottom: 1.5rem;
+
+  mat-form-field {
+    width: 100%;
+  }
+
+  button {
+    height: 44px;
+    font-weight: 600;
+    border-radius: 10px;
+  }
+}
+
+/* Responsive: formulario en columna */
+@media (max-width: 768px) {
+  .product-form {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ====== TABLA ====== */
+table {
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+th {
+  font-weight: 600;
+  background-color: #f5f7fa;
+}
+
+td, th {
+  padding: 0.75rem 1rem;
+}
+
+/* ====== TÍTULO ====== */
+h2 {
+  margin-bottom: 1rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+}

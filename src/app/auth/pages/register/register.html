@@ -1,0 +1,52 @@
+<mat-card class="auth-card">
+
+  <div class="auth-header">
+    <h1>Crear cuenta</h1>
+    <p>Empieza a gestionar tu inventario</p>
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="submit()" class="auth-form">
+
+    <mat-form-field appearance="outline" density="compact">
+      <mat-label>Usuario</mat-label>
+      <input matInput formControlName="username">
+      <mat-error *ngIf="form.get('username')?.invalid">
+        Usuario inválido
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" density="compact">
+      <mat-label>Contraseña</mat-label>
+      <input matInput type="password" formControlName="password">
+      <mat-error *ngIf="form.get('password')?.invalid">
+        Contraseña inválida
+      </mat-error>
+    </mat-form-field>
+
+    <button
+      mat-flat-button
+      color="primary"
+      class="submit-btn"
+      type="submit"
+      [disabled]="loading || form.invalid">
+
+      <ng-container *ngIf="!loading">
+        Crear cuenta
+      </ng-container>
+
+      <mat-progress-spinner
+        *ngIf="loading"
+        diameter="18"
+        mode="indeterminate">
+      </mat-progress-spinner>
+
+    </button>
+
+  </form>
+
+  <div class="auth-footer">
+    <span>¿Ya tienes cuenta?</span>
+    <a routerLink="/auth/login">Iniciar sesión</a>
+  </div>
+
+</mat-card>

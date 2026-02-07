@@ -6,6 +6,8 @@ import { ApiResponse } from '../../../shared/models/api-response.model';
 import { ProductoRequest } from '../models/productoRequest.model';
 import { ProductoResponse } from '../models/productoResponse.model';
 import { ProductosResponse } from '../models/productosResponse.model';
+import { MovimientoRequest } from '../models/movimientoRequest';
+import { MovimientoResponse } from '../models/movimientoResponse';
 
 
 @Injectable({
@@ -15,7 +17,7 @@ export class InventoryService {
 
   private readonly apiUrl = `${environment.apiUrl}/inventario`;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
 
   createProduct(product: ProductoRequest): Observable<ApiResponse<ProductoResponse>> {
@@ -25,11 +27,30 @@ export class InventoryService {
     );
   }
 
-   getProducts(): Observable<ApiResponse<ProductosResponse>> {
+  getProducts(): Observable<ApiResponse<ProductosResponse>> {
     return this.http.get<ApiResponse<ProductosResponse>>(
       `${this.apiUrl}/productos`
     );
   }
+
+
+registrarEntrada(request: MovimientoRequest)
+  : Observable<ApiResponse<MovimientoResponse>> {
+
+  return this.http.post<ApiResponse<MovimientoResponse>>(
+    `${this.apiUrl}/entrada`,
+    request
+  );
+}
+
+registrarSalida(request: MovimientoRequest)
+  : Observable<ApiResponse<MovimientoResponse>> {
+
+  return this.http.post<ApiResponse<MovimientoResponse>>(
+    `${this.apiUrl}/salida`,
+    request
+  );
+}
 
 
 }

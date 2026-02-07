@@ -8,6 +8,7 @@ import { AuthModule } from './auth/auth-module';
 import { LayoutModule } from './layout/layout-module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from './core/interceptors/jwt.interceptor';
+import { InventoryModule } from './features/inventory/inventory-module';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { JwtInterceptor } from './core/interceptors/jwt.interceptor';
     AppRoutingModule,
     SharedModule,
     AuthModule,
-    LayoutModule
+    LayoutModule,
+    InventoryModule
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),

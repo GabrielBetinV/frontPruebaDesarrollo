@@ -1,1 +1,69 @@
-<p>movimientos works!</p>
+<h2>Entradas / Salidas de Inventario</h2>
+
+<!-- 🔼 FORMULARIO -->
+<form [formGroup]="form" (ngSubmit)="submit()" class="movement-form">
+
+  <!-- Producto -->
+  <mat-form-field appearance="outline" density="compact">
+    <mat-label>Producto</mat-label>
+    <mat-select formControlName="productoId">
+      <mat-option *ngFor="let p of productos" [value]="p.productoId">
+        {{ p.codigo }} - {{ p.nombre }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <!-- Cantidad -->
+  <mat-form-field appearance="outline" density="compact">
+    <mat-label>Cantidad</mat-label>
+    <input matInput type="number" formControlName="cantidad">
+  </mat-form-field>
+
+  <!-- Tipo -->
+  <mat-form-field appearance="outline" density="compact">
+    <mat-label>Tipo</mat-label>
+    <mat-select formControlName="tipo">
+      <mat-option value="ENTRADA">Entrada</mat-option>
+      <mat-option value="SALIDA">Salida</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <button
+    mat-flat-button
+    color="primary"
+    type="submit"
+    [disabled]="loading || form.invalid">
+
+    {{ loading ? 'Procesando...' : 'Registrar movimiento' }}
+
+  </button>
+
+</form>
+
+<hr />
+
+<!-- 🔽 TABLA DE PRODUCTOS -->
+<table
+  mat-table
+  [dataSource]="dataSource"
+  class="mat-elevation-z2">
+
+  <ng-container matColumnDef="codigo">
+    <th mat-header-cell *matHeaderCellDef>Código</th>
+    <td mat-cell *matCellDef="let p">{{ p.codigo }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="nombre">
+    <th mat-header-cell *matHeaderCellDef>Nombre</th>
+    <td mat-cell *matCellDef="let p">{{ p.nombre }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="stockActual">
+    <th mat-header-cell *matHeaderCellDef>Stock</th>
+    <td mat-cell *matCellDef="let p">{{ p.stockActual }}</td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+</table>

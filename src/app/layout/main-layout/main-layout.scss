@@ -2,13 +2,16 @@
   height: 100vh;
 }
 
-/* ===== SIDEBAR ===== */
+/* =========================
+   SIDEBAR
+========================= */
 .layout-sidenav {
   width: 240px;
-  background: #1f2937; // gris corporativo
-  color: #fff;
+  background: #0f172a;   // azul petróleo
+  color: #e5e7eb;
 }
 
+/* LOGO */
 .logo {
   height: 64px;
   display: flex;
@@ -16,31 +19,49 @@
   justify-content: center;
   font-weight: 600;
   font-size: 1.1rem;
-  background: #111827;
+  background: #020617;   // más oscuro que sidebar
+  color: #ffffff;
 }
 
+/* NAV LIST */
 mat-nav-list {
   padding-top: 0;
+}
 
-  a {
-    color: #d1d5db;
+.layout-sidenav a.mat-mdc-list-item {
+  color: #cbd5f5;
+  border-radius: 8px;
+  margin: 4px 8px;
+  transition: background-color 0.2s ease, color 0.2s ease;
 
+  mat-icon {
+    margin-right: 12px;
+    color: #9ca3af;
+  }
+
+  &:hover {
+    background: #1e293b;
+  }
+
+  &.active {
+    background: #1e293b;
+
+    .mdc-list-item__primary-text,
     mat-icon {
-      margin-right: 12px;
-    }
-
-    &.active {
-      background: rgba(255, 255, 255, 0.08);
-      color: #fff;
+      color: #ffffff;
     }
   }
 }
 
-/* ===== HEADER ===== */
+/* =========================
+   HEADER
+========================= */
 .layout-toolbar {
   position: sticky;
   top: 0;
   z-index: 10;
+  background: #020617 !important; // header corporativo
+  color: #ffffff;
 }
 
 .menu-btn {
@@ -49,20 +70,25 @@ mat-nav-list {
 
 .title {
   font-weight: 600;
+  letter-spacing: 0.3px;
 }
 
 .spacer {
   flex: 1 1 auto;
 }
 
-/* ===== CONTENIDO ===== */
+/* =========================
+   CONTENIDO
+========================= */
 .layout-content {
   padding: 1.5rem;
   background: #f3f4f6;
   min-height: calc(100vh - 64px);
 }
 
-/* ===== RESPONSIVE ===== */
+/* =========================
+   RESPONSIVE
+========================= */
 @media (max-width: 768px) {
   .layout-sidenav {
     width: 220px;

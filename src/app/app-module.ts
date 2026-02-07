@@ -6,7 +6,7 @@ import { App } from './app';
 import { SharedModule } from './shared/shared-module';
 import { AuthModule } from './auth/auth-module';
 import { LayoutModule } from './layout/layout-module';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { JwtInterceptor } from './core/interceptors/jwt.interceptor';
 import { InventoryModule } from './features/inventory/inventory-module';
 
@@ -21,7 +21,8 @@ import { InventoryModule } from './features/inventory/inventory-module';
     SharedModule,
     AuthModule,
     LayoutModule,
-    InventoryModule
+    InventoryModule,
+    HttpClientModule
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),

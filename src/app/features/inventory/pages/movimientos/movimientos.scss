@@ -3,51 +3,63 @@
   padding: 1.5rem;
 }
 
-/* ====== FORMULARIO ====== */
+/* ===== FORM ===== */
 .movement-form {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr auto;
+   display: grid;
+  grid-template-columns: 2fr 2fr 2fr auto;
   gap: 1rem;
-  align-items: end;
-  margin-bottom: 1.5rem;
+  align-items: stretch; // 🔥 CLAVE REAL
 
   mat-form-field {
     width: 100%;
   }
-
-  button {
-    height: 44px;
-    font-weight: 600;
-    border-radius: 10px;
-  }
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .movement-form {
-    grid-template-columns: 1fr;
-  }
+.action-button {
+  height: 56px;               // 🔥 ALTURA REAL DE mat-form-field
+  align-self: stretch;        // 🔥 SE ESTIRA COMO LOS INPUTS
+  padding: 0 1.75rem;
+  border-radius: 12px;
+  font-weight: 600;
+  white-space: nowrap;
 }
 
-/* ====== TABLA ====== */
+/* ===== FILTRO ===== */
+.filter-field {
+  width: 300px;
+  margin-bottom: 1rem;
+}
+
+/* ===== TABLA ===== */
+.table-container {
+  max-height: 320px; // 🔥 SCROLL
+  overflow: auto;
+  border-radius: 12px;
+}
+
 table {
   width: 100%;
-  border-radius: 12px;
-  overflow: hidden;
 }
 
 th {
+  position: sticky;
+  top: 0;
+  background: #f5f7fa;
   font-weight: 600;
-  background-color: #f5f7fa;
+  z-index: 1;
 }
 
 td, th {
   padding: 0.75rem 1rem;
 }
 
-/* ====== TÍTULO ====== */
-h2 {
-  margin-bottom: 1rem;
-  font-size: 1.4rem;
-  font-weight: 600;
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .movement-form {
+    grid-template-columns: 1fr;
+  }
+
+  .filter-field {
+    width: 100%;
+  }
 }

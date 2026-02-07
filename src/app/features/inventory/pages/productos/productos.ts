@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ProductosResponse } from '../../models/productosResponse.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { InventoryService } from '../../services/inventory.service';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-productos',
@@ -13,11 +14,14 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class Productos implements OnInit {
 
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
   loading = false;
   productos: ProductosResponse[] = [];
   form: FormGroup;
 
-   dataSource = new MatTableDataSource<ProductosResponse>();
+  dataSource = new MatTableDataSource<ProductosResponse>();
 
 
 
@@ -42,6 +46,29 @@ export class Productos implements OnInit {
     this.loadProducts();
   }
 
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+
+    // Filtro por código y nombre
+    this.dataSource.filterPredicate = (data, filter) => {
+      const value = filter.trim().toLowerCase();
+      return (
+        data.codigo.toLowerCase().includes(value) ||
+        data.nombre.toLowerCase().includes(value)
+      );
+    };
+  }
+
+  applyFilter(event: Event) {
+    const value = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = value.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
+
 
   loadProducts(): void {
     this.inventoryService.getProducts().subscribe({
@@ -61,7 +88,7 @@ export class Productos implements OnInit {
     });
   }
 
- 
+
   submit(): void {
     if (this.form.invalid) return;
 
@@ -70,7 +97,7 @@ export class Productos implements OnInit {
     const request = {
       codigo: this.form.value.codigo!,
       nombre: this.form.value.nombre!,
-      usuario: 'SYSTEM' 
+      usuario: 'SYSTEM'
     };
 
     this.inventoryService.createProduct(request)
@@ -81,7 +108,7 @@ export class Productos implements OnInit {
           if (response.status === 'SUCCESS') {
             this.snackBar.open(response.message, 'OK', { duration: 3000 });
             this.form.reset();
-            this.loadProducts(); 
+            this.loadProducts();
           } else {
             this.snackBar.open(response.message, 'Cerrar', { duration: 4000 });
           }

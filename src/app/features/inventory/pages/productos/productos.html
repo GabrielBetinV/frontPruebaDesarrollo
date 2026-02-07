@@ -13,20 +13,23 @@
     <input matInput formControlName="nombre">
   </mat-form-field>
 
-  <button
-    mat-flat-button
-    color="primary"
-    type="submit"
-    [disabled]="loading || form.invalid">
+<button
+  mat-flat-button
+  color="primary"
+  type="submit"
+  class="form-btn"
+  [disabled]="loading || form.invalid">
 
-    {{ loading ? 'Guardando...' : 'Crear producto' }}
-  </button>
+  {{ loading ? 'Guardando...' : 'Crear producto' }}
+</button>
 
 </form>
 
 <hr />
 
 <!-- 🔽 TABLA -->
+
+<div class="table-container mat-elevation-z2">
 <table
   mat-table
   [dataSource]="dataSource"
@@ -51,3 +54,5 @@
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
 </table>
+
+</div>

@@ -5,6 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { InventoryService } from '../../services/inventory.service';
 import { ProductosResponse } from '../../models/productosResponse.model';
 import { MatPaginator } from '@angular/material/paginator';
+import { SessionService } from '../../../../core/services/session.service';
 
 @Component({
   selector: 'app-movimientos',
@@ -26,7 +27,8 @@ export class Movimientos implements OnInit {
   constructor(
     private fb: FormBuilder,
     private inventoryService: InventoryService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private session: SessionService
   ) {
     this.form = this.fb.group({
       productoId: ['', Validators.required],
@@ -80,12 +82,11 @@ export class Movimientos implements OnInit {
 
     this.loading = true;
 
-    const usuario = localStorage.getItem('usuario') ?? 'SYSTEM';
 
     const request = {
       productoId: this.form.value.productoId,
       cantidad: this.form.value.cantidad,
-      usuario
+      usuario: this.session.getItem('usuario') ?? 'SYSTEM'
     };
 
     const call$ =

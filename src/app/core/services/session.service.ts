@@ -18,4 +18,10 @@ export class SessionService {
   logout(): void {
     localStorage.removeItem(this.TOKEN_KEY);
   }
+
+
+   getItem(key : string): string | null {
+    return localStorage.getItem(key);
+  }
+
 }

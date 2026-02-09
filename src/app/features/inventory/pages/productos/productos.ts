@@ -5,6 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { InventoryService } from '../../services/inventory.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
+import { SessionService } from '../../../../core/services/session.service';
 
 @Component({
   selector: 'app-productos',
@@ -30,7 +31,8 @@ export class Productos implements OnInit {
   constructor(
     private fb: FormBuilder,
     private inventoryService: InventoryService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private session: SessionService
   ) {
 
 
@@ -94,10 +96,12 @@ export class Productos implements OnInit {
 
     this.loading = true;
 
+    
+
     const request = {
       codigo: this.form.value.codigo!,
       nombre: this.form.value.nombre!,
-      usuario: 'SYSTEM'
+      usuario: this.session.getItem('usuario') ?? 'SYSTEM' 
     };
 
     this.inventoryService.createProduct(request)

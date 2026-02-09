@@ -3,6 +3,7 @@ import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -47,20 +48,30 @@ export class Login {
 
           console.log(response)
           localStorage.setItem('token', response.data[0].token);
+          localStorage.setItem('usuario', response.data[0].usuario);
 
           this.snackBar.open(response.message, 'OK', { duration: 3000 });
           this.router.navigate(['/inventory']);
         } else {
+          console.log(response)
           this.snackBar.open(response.message, 'Cerrar', { duration: 4000 });
         }
       },
-      error: () => {
+      error: (error: HttpErrorResponse) => {
         this.loading = false;
-        this.snackBar.open(
-          'Error de comunicación con el servidor',
-          'Cerrar',
-          { duration: 4000 }
-        );
+        if (error.status === 401) {
+          this.snackBar.open(
+            'Usuario o contraseña incorrectos',
+            'Cerrar',
+            { duration: 4000 }
+          );
+        } else {
+          this.snackBar.open(
+            'Error de comunicación con el servidor',
+            'Cerrar',
+            { duration: 4000 }
+          );
+        }
       }
     });
   }
